@@ -8,9 +8,13 @@
 
 #include "MLC_types.h"
 #include "MTC.h"
+#ifdef ESP32
+#include <ESP32Servo.h>
+#else
 #include <Servo.h>
+#endif
 
-#include "../conf/my/controller_config.h"
+#include "../conf/my/controller_config_ESP32.h"
 #include "../conf/my/network_config.h"
 
 #include "MLC_check.h"
@@ -112,7 +116,13 @@ void setup()
         if (sensorConfiguration[i].pinType == LOCAL_SENSOR_PIN_TYPE) {
             // sensor connected directly to the controller
             pinMode(sensorConfiguration[i].pin, INPUT_PULLUP);
+            #ifdef ESP32
+            // GPIO02 (22) is CS on ESP32
+            sensorTriggerState[i] = (sensorConfiguration[i].pin == 22) ? HIGH : LOW;
+            #else
+            // D8 is CS on ESP8266
             sensorTriggerState[i] = (sensorConfiguration[i].pin == D8) ? HIGH : LOW;
+            #endif
         }
 #if USE_MCP23017
         else if (sensorConfiguration[i].pinType >= MCP23017_SENSOR_PIN_TYPE && sensorConfiguration[i].pinType < 0x40) {
