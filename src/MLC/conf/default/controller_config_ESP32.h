@@ -62,7 +62,7 @@
 
 // PCA9685 OE pin supported?
 #define PCA9685_OE_PIN_INSTALLED false
-const uint8_t PCA9685_OE_PIN = D0;
+const uint8_t PCA9685_OE_PIN = 4;
 
 // Number of chained PCA9685 port extenders
 #define NUM_PCA9685s 1
@@ -107,15 +107,17 @@ const uint8_t PCA9685_OE_PIN = D0;
 // Number of servos
 #define NUM_SERVOS 2
 
+// Recommended PWM GPIO pins on the ESP32 include 2,4,12-19,21-23,25-27,32-33 
+
 TServoConfiguration servoConfiguration[NUM_SERVOS] =
 {
     {
-        .pin = D0,
+        .pin = 2,
         .pinType = 0,
         .detachAfterUsage = true
     },
     {
-        .pin = D1,
+        .pin = 4,
         .pinType = 0,
         .detachAfterUsage = true
     }
@@ -134,19 +136,19 @@ TServoConfiguration servoConfiguration[NUM_SERVOS] =
 TLEDConfiguration ledConfiguration[NUM_LEDS] =
 {
     {
-        .pin = D2,
+        .pin = 12,
         .pinType = 0
     },
     {
-        .pin = D3,
+        .pin = 13,
         .pinType = 0
     },
     {
-        .pin = D4,
+        .pin = 14,
         .pinType = 0
     },
     {
-        .pin = D5,
+        .pin = 15,
         .pinType = 0
     }
 };
@@ -171,12 +173,12 @@ TLEDConfiguration ledConfiguration[NUM_LEDS] =
 TSensorConfiguration sensorConfiguration[NUM_SENSORS] =
 {
     {
-        .pin = D6,
+        .pin = 25,
         .pinType = LOCAL_SENSOR_PIN_TYPE,
         .remoteMattzoControllerId = -1
     },
     {
-        .pin = D7,
+        .pin = 26,
         .pinType = LOCAL_SENSOR_PIN_TYPE,
         .remoteMattzoControllerId = -1
     }
@@ -190,7 +192,7 @@ TSensorConfiguration sensorConfiguration[NUM_SENSORS] =
 // Set to false if no status LED is installed
 const bool STATUS_LED_PIN_INSTALLED = true;
 // If installed, the pin controlling the status LED
-const uint8_t STATUS_LED_PIN = D8;
+const uint8_t STATUS_LED_PIN = 2;
 // If installed, set to true to flip high/low state of the status led pin
 const bool STATUS_LED_REVERSE = false;
 
