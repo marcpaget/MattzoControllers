@@ -3,5 +3,5 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
-my_platformio.ini
-conf/my
+# my_platformio.ini
+# conf/my
