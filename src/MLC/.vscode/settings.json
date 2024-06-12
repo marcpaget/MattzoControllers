@@ -1,3 +1,9 @@
 {
-    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, ColumnLimit: 0,AllowShortFunctionsOnASingleLine: true,BreakBeforeBraces: Custom, BraceWrapping: {AfterFunction:  true, AfterClass: true }}",	
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, ColumnLimit: 0,AllowShortFunctionsOnASingleLine: true,BreakBeforeBraces: Custom, BraceWrapping: {AfterFunction:  true, AfterClass: true }}",
+    "C_Cpp.errorSquiggles": "enabled",
+    "idf.adapterTargetName": "esp32",
+    "idf.openOcdConfigs": [
+        "board/esp32-bridge.cfg"
+    ],
+    
 }

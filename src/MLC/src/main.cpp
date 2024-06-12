@@ -5,12 +5,15 @@
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 #include "MLC_types.h"
 #include "MTC.h"
+#ifdef ESP32
+#include <ESP32Servo.h>
+#else
 #include <Servo.h>
+#endif
 
-#include "../conf/my/controller_config.h"
+#include "../conf/my/controller_config_ESP32.h"
 #include "../conf/my/network_config.h"
 
 #include "MLC_check.h"
@@ -112,7 +115,13 @@ void setup()
         if (sensorConfiguration[i].pinType == LOCAL_SENSOR_PIN_TYPE) {
             // sensor connected directly to the controller
             pinMode(sensorConfiguration[i].pin, INPUT_PULLUP);
+             #ifdef ESP32
+            // GPIO02 (22) is CS on ESP32
+            sensorTriggerState[i] = (sensorConfiguration[i].pin == 22) ? HIGH : LOW;
+            #else
+             // D8 is CS on ESP8266
             sensorTriggerState[i] = (sensorConfiguration[i].pin == D8) ? HIGH : LOW;
+            #endif
         }
 #if USE_MCP23017
         else if (sensorConfiguration[i].pinType >= MCP23017_SENSOR_PIN_TYPE && sensorConfiguration[i].pinType < 0x40) {

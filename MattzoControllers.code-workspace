@@ -85,5 +85,6 @@
 			"xlocinfo": "cpp",
 			"xstring": "cpp"
 		},
+		"nuxt.isNuxtApp": false,
 	}
 }
